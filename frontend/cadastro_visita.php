@@ -27,10 +27,10 @@
                             <tr>
                                 <th>Nome Advogado</th>
                                 <th>Oab</th>
-                                <th>Unidade</th>
+                                <th>Unidade Prisional</th>
                                 <th>Localização</th>
-                                <th>Data Início</th>
-                                <th>Data Fim</th>
+                                <th>Data Visita</th>
+                                <th>Data Realização</th>
                                 <th>Status</th>
                                 <th>Prioridade</th>
                                 <th>Ações</th>
@@ -51,14 +51,12 @@
                     <div class="form-group row">
                         <input type="text" name="txtCodigo" id="txtCodigo" hidden>
                         <div class="form-group-sm col-sm-12 col-md-4">
-                            <label class="control-label" for="txtTitulo">Título</label>
-                            <input type="text" id="txtTitulo" class="form-control" placeholder="Título" required>
+                            <label class="control-label" for="txtNomeAdvogado">Nome Advogado</label>
+                            <input type="text" id="txtNomeAdvogado" class="form-control" placeholder="Nome Advogado" required>
                         </div>
                         <div class="form-group-sm col-sm-12 col-md-4">
-                            <label class="control-label" for="selCategoria">Categoria</label>
-                            <select id="selCategoria" class="form-control" required>
-                                <option value=""></option>
-                            </select>
+                            <label class="control-label" for="txtOab">Oab</label>
+                            <input type="text" id="txtOab" class="form-control" placeholder="Oab" required>
                         </div>
                         <div class="form-group-sm col-sm-12 col-md-4">
                             <label class="control-label" for="txtResponsavel">Responsável</label>
@@ -67,15 +65,15 @@
                     </div>
                     <div class="form-group row">
                         <div class="form-group-sm col-sm-12 col-md-4">
-                            <label class="control-label" for="txtLocalizacao">Localização</label>
+                            <label class="control-label" for="txtLocalizacao">Unidade Prisional</label>
                             <input type="text" id="txtLocalizacao" class="form-control" placeholder="Localização" required>
                         </div>
                         <div class="form-group-sm col-sm-12 col-md-2">
-                            <label class="control-label" for="txtDataInicio">Data Início</label>
+                            <label class="control-label" for="txtDataInicio">Data Visita</label>
                             <input type="text" id="txtDataInicio" class="form-control data" required>
                         </div>
                         <div class="form-group-sm col-sm-12 col-md-2">
-                            <label class="control-label" for="txtDataFim">Data Fim</label>
+                            <label class="control-label" for="txtDataFim">Data Realização</label>
                             <input type="text" id="txtDataFim" class="form-control data" required>
                         </div>
                         <div class="form-group-sm col-sm-12 col-md-4">
@@ -100,6 +98,14 @@
                                 <option value="O">Concluído</option>
                                 <option value="N">Não Iniciado</option>
                             </select>
+                        </div>
+                        <div class="form-group-sm col-sm-12 col-md-4">
+                            <label class="control-label" for="txtHorario">Horário</label>
+                            <input type="number" id="txtHorario" class="form-control" placeholder="Horário" required>
+                        </div>
+                        <div class="form-group-sm col-sm-12 col-md-4">
+                            <label class="control-label" for="txtDetento">Detento</label>
+                            <input type="number" id="txtDetento" class="form-control" placeholder="Detento" required>
                         </div>
                     </div>
                     <div class="form-group row">
