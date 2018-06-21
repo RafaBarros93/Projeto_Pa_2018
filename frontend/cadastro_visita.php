@@ -79,7 +79,7 @@
                         </div>
                         <div class="form-group-sm col-sm-12 col-md-4">
                             <label class="control-label" for="txtHorario">Horário</label>
-                            <input type="number" id="txtHorario" class="form-control" placeholder="Horário" required>
+                            <input type="time" id="txtHorario" class="form-control time" placeholder="Horário" required>
                         </div>
 
                     </div>
