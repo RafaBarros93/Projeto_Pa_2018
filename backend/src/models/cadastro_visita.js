@@ -1,37 +1,37 @@
 const configDB = require('../../config/config_DB');
 
-module.exports.get = async function(id){
-    
-    let parametro = 'WHERE CodigoVisita = ';
-    
+module.exports.get = async function (id) {
+
+    let parametro = 'WHERE iddetento = ';
+
     // prepara  o parametro
-    if(id === null)
+    if (id === null)
         parametro = '';
-    else 
+    else
         parametro += id;
 
     //monta a consulta
     let script = `SELECT *
-                  FROM Visita  (NOLOCK) ${parametro}`;
-                  
+                  FROM VW_PORTAL_AGENDAMENTO  (NOLOCK) ${parametro}`;
+
+    
     let resultado = await configDB.executaScriptSQL(script);
     return resultado;
 };
 
-module.exports.post = async function(chamado){
-    
+module.exports.post = async function (chamado) {
+
     let campos = "";
     let valores = "";
 
     for (key in chamado) { // obtém as chaves do objeto
         // se o valor for diferente de objeto (caso events)
         if (typeof chamado[key] !== 'object') {
-            if (key !== 'CodigoVisita'){
-                if (campos === ""){
+            if (key !== 'iddetento') {
+                if (campos === "") {
                     campos += key;
                     valores += "'" + chamado[key] + "'";
-                }
-                else {
+                } else {
                     campos += "," + key;
                     valores += ",'" + chamado[key] + "'";
                 }
@@ -39,43 +39,42 @@ module.exports.post = async function(chamado){
         }
     };
 
-    let script = `INSERT INTO Visita (${campos})
-                        VALUES (${valores}) SELECT SCOPE_IDENTITY() AS id` ;
+    let script = `INSERT INTO SisAAA (${campos})
+                        VALUES (${valores}) SELECT SCOPE_IDENTITY() AS id`;
 
-    console.log(script);                   
+    console.log(script);
     let resultado = await configDB.executaScriptSQL(script);
     return resultado;
 };
 
-module.exports.put = async function(chamado){
-    
+module.exports.put = async function (chamado) {
+
     let valores = "";
 
     for (key in chamado) { // obtém as chaves do objeto
         // se o valor for diferente de objeto (caso events)
         if (typeof chamado[key] !== 'object') {
-            if (key !== 'CodigoVisita'){
-                if (valores === ""){
+            if (key !== 'iddetento') {
+                if (valores === "") {
                     valores += key + " ='" + chamado[key] + "'";
-                }
-                else {
+                } else {
                     valores += "," + key + " ='" + chamado[key] + "'";
                 }
             }
         }
     };
 
-    let script = `UPDATE Visita SET ${valores}
-                        WHERE CodigoVisita = ${chamado.CodigoVisita}`;
+    let script = `UPDATE SisAAA SET ${valores}
+                        WHERE iddetento = ${chamado.iddetento}`;
 
     let resultado = await configDB.executaScriptSQL(script);
     return resultado;
 };
 
-module.exports.delete = async function(id){
+module.exports.delete = async function (id) {
 
     //monta a consulta
-    let script = `DELETE FROM Visita WHERE CodigoVisita = ${id}`;
+    let script = `DELETE FROM SisAAA WHERE iddetento = ${id}`;
 
     let resultado = await configDB.executaScriptSQL(script);
     return resultado;

@@ -5,13 +5,13 @@
 
 body
 {
-    background-color: #bfbfbf;
+    background-color:rgba(3, 3, 3, 0.7) ;
     font-family: bariol Regular;
 }
 
 .navbar 
 {
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(3, 3, 3, 0.7);
 }
 
 /* Controla o iframe dos dashboards */
@@ -61,8 +61,3 @@ img{
     margin-right: auto 
 }
 
-img.index{
-    width:5px;
-    height: 5px;
-}
- 

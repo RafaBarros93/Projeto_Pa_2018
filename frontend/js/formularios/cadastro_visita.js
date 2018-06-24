@@ -24,87 +24,77 @@ function cancelarRegistro() {
 
 $(window).on("load", function () {
     carregaChamado();
-    
+
 });
 
-function salvarRegistro() {
-   debugger
-    let codigo = document.getElementById('txtCodigo').value;
-    let nomeAdvogado = document.getElementById('txtNomeAdvogado').value;
-    let oab = document.getElementById('txtOab').value;
-    let unidade = document.getElementById('txtUnidade').value;
-    let responsavel = document.getElementById('txtResponsavel').value;
-    let dataVisita = formataData(document.getElementById('txtDataInicio').value);
-    let dataRealizacao = formataData(document.getElementById('txtDataFim').value);
-    let detento = document.getElementById('txtDetento').value;
-    let horario = document.getElementById('txtHorario').value;
-    let observacao = document.getElementById('txtObservacao').value;
 
-    let registro = {};
+
+function preencheTableUnidade(codigo) {
+
     if (codigo != '') {
-        registro.CodigoVisita = codigo;
-    } 
-    registro.NomeAdvogado = nomeAdvogado;
-    registro.Oab = oab;
-    registro.Unidade = unidade;
-    registro.DataInicio = dataVisita;
-    registro.DataFim = dataRealizacao;
-    registro.Responsavel = responsavel;
-    registro.NumeroPreso = detento;
-    registro.Horario = horario;
-    registro.Observacao = observacao;
+        let tabela = document.getElementById('lista_corpo');
+        for (let x in registros) {
+            if (registros[x].nomeUnid === codigo) {
+                tabela.innerHTML +=
+                    `
+            <tr>
+                <td>${registros[x].horario}</td>
+                <td>${registros[x].infopen}</td>
+                <td>${registros[x].nomeDetento}</td>
+                <td>${registros[x].nomeAla}</td>
+                <td>${registros[x].nomeCela}</td>
+                <td>${registros[x].nomeAdv}</td>   
+                <td>${registros[x].oab}</td> 
+                <td>${formataDataBrasileira(registros[x].dataVisita)}</td> 
+             </tr>
+            `
+            }
+            if (registros[x].nomeUnid != codigo || codigo === "teste") {
+                tabela.innerHTML = '';
+                $('#modal_contrato').modal('show');
+                let mensagem = document.getElementById('mensagem_modal_contrato');
+                mensagem.innerHTML = 'Unidade prisional sem registros!';
+            }
+        }
 
-    let dados = JSON.stringify(registro);
-    if (codigo == '')
-        gravarBD(dados);
-    else
-        alterarBD(dados);
-}
-
-function editarRegistro(indice) {
-    controlaPanel(true);
-    document.getElementById('txtCodigo').value = registros[indice].CodigoVisita;
-    document.getElementById('txtNomeAdvogado').value = registros[indice].NomeAdvogado;
-    document.getElementById('txtOab').value = registros[indice].Unidade;
-    document.getElementById('txtResponsavel').value = registros[indice].Responsavel;
-    document.getElementById('txtUnidade').value = registros[indice].Unidade;
-    document.getElementById('txtDataInicio').value = formataDataBrasileira(registros[indice].DataInicio);
-    document.getElementById('txtDataFim').value = formataDataBrasileira(registros[indice].DataFim);
-    document.getElementById('txtDetento').value = registros[indice].Responsavel;
-    document.getElementById('txtDetento').value = registros[indice].NumeroPreso;
-    document.getElementById('txtHorario').value = registros[indice].Horario;
-    document.getElementById('txtObservacao').value = registros[indice].Observacao;
-}
-
-function exibirConfirmarExcluir(indice) {
-    let mensagem = document.getElementById('mensagem_modal_confirmar');
-    mensagem.innerHTML = 'Atenção! Confirma a exclusão do registro?';
-    //captura o button de confirmar do modal_confirmar
-    let btnModalConfirmar = document.getElementById('btnModalConfirmar');
-    //cria o evento onclick
-    let onClick = document.createAttribute('onclick');
-    //define o evento onclick
-    onClick.value = 'excluirRegistro(' + indice + ')';
-    //atribui ao elemento html
-    btnModalConfirmar.attributes.setNamedItem(onClick);
-    $('#modal_confirmar').modal('show');
-}
-
-function excluirRegistro(indice) {
-    $('#modal_confirmar').modal('hide');
-    let codigo = registros[indice].CodigoVisita;
-    deletarBD(codigo);
-    //verifica se o indice a ser deletado é o ultimo do array de registros
-    if (indice === registros.length - 1) {
-        registros.pop();
-    } else if (indice === 0) { //verifica se o indice a ser deletado é o primeiro do array de registros
-        registros.shift();
-    } else {
-        let auxInicio = registros.slice(0, indice);
-        let auxFim = registros.slice(indice + 1);
-        registros = auxInicio.concat(auxFim);
     }
-    preencheTable();
+}
+
+function preencheTableData(codigo) {
+    
+    let data;
+    if (codigo != '') {
+        let tabela = document.getElementById('lista_corpo');
+        for (let x in registros) {
+            data = registros[x].dataVisita;
+            moment(codigo); 
+            var isAfter = moment(data).isAfter(codigo);
+            console.log(isAfter);
+            if ( data === codigo) {
+                tabela.innerHTML +=
+                    `
+                <tr>
+                    <td>${registros[x].horario}</td>
+                    <td>${registros[x].infopen}</td>
+                    <td>${registros[x].nomeDetento}</td>
+                    <td>${registros[x].nomeAla}</td>
+                    <td>${registros[x].nomeCela}</td>
+                    <td>${registros[x].nomeAdv}</td>   
+                    <td>${registros[x].oab}</td> 
+                    <td>${formataDataBrasileira(registros[x].dataVisita)}</td> 
+                 </tr>
+                `
+            }
+            if (registros[x].dataVisita != codigo) {
+                tabela.innerHTML = '';
+                $('#modal_contrato').modal('show');
+                let mensagem = document.getElementById('mensagem_modal_contrato');
+                mensagem.innerHTML = 'Data inexistente!';
+
+            }
+        }
+
+    }
 }
 
 function preencheTable() {
@@ -114,19 +104,14 @@ function preencheTable() {
         tabela.innerHTML +=
             `
         <tr>
-            <td>${registros[i].NomeAdvogado}</td>
-            <td>${registros[i].Oab}</td>
-            <td>${registros[i].Unidade}</td>
-            <td>${registros[i].Responsavel}</td>
-            <td>${formataDataBrasileira(registros[i].DataInicio)}</td>
-            <td>${formataDataBrasileira(registros[i].DataFim)}</td>
-            <td>${registros[i].Horario}</td>
-            <td>${registros[i].NumeroPreso}</td>
-            <td>${formataDataBrasileira(registros[i].InseridoEm)}</td>
-             <td style="white-space: nowrap">
-                <button class="btn btn-primary btn-xs glyphicon glyphicon-edit" title="Editar" onclick="editarRegistro(${i})"></button>&nbsp;
-                <button class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Excluir" onclick="exibirConfirmarExcluir(${i})"></button>
-            </td>
+            <td>${registros[i].horario}</td>
+            <td>${registros[i].infopen}</td>
+            <td>${registros[i].nomeDetento}</td>
+            <td>${registros[i].nomeAla}</td>
+            <td>${registros[i].nomeCela}</td>
+            <td>${registros[i].nomeAdv}</td>   
+            <td>${registros[i].oab}</td> 
+            <td>${formataDataBrasileira(registros[i].dataVisita)}</td> 
         </tr>
         `
     }
@@ -168,7 +153,7 @@ function carregaChamado() {
         if (xhr.status == 200) {
             let data = $.parseJSON(xhr.responseText).result;
             registros = data;
-            preencheTable();
+        
         }
     }
     xhr.send();
@@ -176,16 +161,16 @@ function carregaChamado() {
 
 
 
-function printData(id) {      
-   let html = `
+function printData(id) {
+    let html = `
             <center><strong>Sistema de cadastro de visitas advocaticias Infopen</strong></center> 
             <br>
             
        
         ${$('#'+id)[0].outerHTML}
    `;
-   newWin= window.open("");
-   newWin.document.write(html);
-   newWin.print();
-   newWin.close();
+    newWin = window.open("");
+    newWin.document.write(html);
+    newWin.print();
+    newWin.close();
 }

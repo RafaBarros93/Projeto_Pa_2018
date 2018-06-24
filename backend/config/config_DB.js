@@ -19,6 +19,7 @@ module.exports.executaScriptSQL = async function(query){
         linhasAfetadas: null
     };
     //cria o pool de conexao com o BD
+    
     let pool = new sql.ConnectionPool(conexao);
     pool.on('err', err => {
         console.log('Falha ao conectar-se ao banco de dados. ' + err);

@@ -11,8 +11,16 @@
                 <form class="form-inline">
                     <label class="control-label" for="txtBuscar">Pesquise na tabela por:</label>
                     <input type="text" id="txtBuscar" placeholder="Buscar por" class="form-control input-sm">&nbsp;
-                    <button type="button" class="form-control btn btn-success btn-sm" onclick="novoRegistro()">Inserir</button>
-                    <button type="button" class="btn btn-dark btn-sm glyphicon glyphicon-print" title="Imprimir" onclick="printData('lista');"></button>
+                    <label class="control-label" for="selStatus">Unidade Prisional</label>
+                    <select id="selStatus" class="form-control input-sm" required onChange='preencheTableUnidade(this.value)'>
+                        <option value="teste"></option>
+                        <option value="PRIJMDD">PRIJMD</option>
+                        <option value="PRPJC">PRPJC</option>
+                        <option value="PRBAR">PRBAR</option>
+                    </select>
+                    <label class="control-label" for="dataAgendamento">Data</label>
+                    <input type="date" id="dataAgendamento" onChange='preencheTableData(this.value)' class="form-control input-sm">
+                    <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-print" title="Imprimir" onclick="printData('lista');"></button>
                 </form>
             </div>
         </div>
@@ -25,16 +33,14 @@
                     <table class="table table-striped" id="lista_registros">
                         <thead>
                             <tr>
-                                <th>Nome Advogado</th>
-                                <th>Oab</th>
-                                <th>Responsável</th>
-                                <th>Unidade Prisional</th>
-                                <th>Data Visita</th>
-                                <th>Data Realização</th>
                                 <th>Horário</th>
-                                <th>Detento</th>
-                                <th>Inserido Em</th>
-                                <th>Ações</th>
+                                <th>Infopen</th>
+                                <th>Nome detento</th>
+                                <th>Ala</th>
+                                <th>Cela</th>
+                                <th>Nome Aadvogado</th>
+                                <th>OAB</th>
+                                <th>Data Visita</th>
                             </tr>
                         </thead>
                         <tbody id="lista_corpo">
@@ -102,7 +108,7 @@
         </form>
 
         <!-- Formulario modal de confirmacao-->
-        <div class="modal fade" id="modal_confirmar" tabindex="-1" role="dialog">
+        <div class="modal fade" id="modal_contrato" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -112,15 +118,16 @@
                         <h5 class="modal-title">Confirmar</h5>
                     </div>
                     <div class="modal-body">
-                        <p id="mensagem_modal_confirmar"></p>
+                        <p id="mensagem_modal_contrato"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="btnModalConfirmar">Sim</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+                       <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        
 
     </div>
 
@@ -128,6 +135,8 @@
     <script src="js/mask_money.js"></script>
     <script src="js/config.js"></script>
     <script src="js/formularios/cadastro_visita.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/moment-with-locales.js"></script>
 
     <?php
     require_once("layout/rodape_layout.php");
