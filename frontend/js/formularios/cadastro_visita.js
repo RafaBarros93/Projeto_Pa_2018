@@ -28,7 +28,6 @@ $(window).on("load", function () {
 });
 
 
-
 function preencheTableUnidade(codigo) {
 
     if (codigo != '') {
@@ -61,16 +60,15 @@ function preencheTableUnidade(codigo) {
 }
 
 function preencheTableData(codigo) {
-    
     let data;
     if (codigo != '') {
         let tabela = document.getElementById('lista_corpo');
         for (let x in registros) {
             data = registros[x].dataVisita;
-            moment(codigo); 
+            moment(codigo);
             var isAfter = moment(data).isAfter(codigo);
             console.log(isAfter);
-            if ( data === codigo) {
+            if (data === codigo) {
                 tabela.innerHTML +=
                     `
                 <tr>
@@ -153,7 +151,7 @@ function carregaChamado() {
         if (xhr.status == 200) {
             let data = $.parseJSON(xhr.responseText).result;
             registros = data;
-        
+
         }
     }
     xhr.send();

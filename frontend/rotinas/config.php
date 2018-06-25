@@ -1,6 +1,7 @@
 <?php
     //define a constante do endereco da url do servico
-    define('BASE_URL_SERVICO', 'http://localhost:3002/portal_patrimar');
+    define('BASE_URL_SERVICO', 'http://localhost:3002/portal_infopen');
+
 
     /*funcao para atribuir mascaras*/
     function mask($val, $mask)

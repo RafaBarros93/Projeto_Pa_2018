@@ -2,10 +2,13 @@ let sql = require('mssql');
 
 //monta a string de conexao
 let conexao = {
-    user: 'sa',
-    password: 'Rodrigo300384!',
-    server: 'DESKTOP-KBOA9KN',
-    database: 'Patrimar'
+    user: 'infopen',
+    password: 'Teste123',
+    server: 'infopen.database.windows.net',
+    database: 'Db_Infopen',
+    options: {
+        encrypt: true // Use this if you're on Windows Azure
+    }
 }
 //exporta a string de conexao caso seja necessaria
 module.exports.stringConexao = conexao;

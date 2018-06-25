@@ -1,5 +1,6 @@
 //url base dos servicos da aplicacao
-const BASE_URL_SERVICO = 'http://localhost:3002/portal_patrimar';
+const BASE_URL_SERVICO = 'http://localhost:3002/portal_infopen';
+
 
 //quando a pagina ja está carregada
 $(document).ready(function(){

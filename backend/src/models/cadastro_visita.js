@@ -2,7 +2,7 @@ const configDB = require('../../config/config_DB');
 
 module.exports.get = async function (id) {
 
-    let parametro = 'WHERE iddetento = ';
+    let parametro = 'WHERE idAAA = ';
 
     // prepara  o parametro
     if (id === null)
@@ -27,7 +27,7 @@ module.exports.post = async function (chamado) {
     for (key in chamado) { // obtém as chaves do objeto
         // se o valor for diferente de objeto (caso events)
         if (typeof chamado[key] !== 'object') {
-            if (key !== 'iddetento') {
+            if (key !== 'idAAA') {
                 if (campos === "") {
                     campos += key;
                     valores += "'" + chamado[key] + "'";
@@ -54,7 +54,7 @@ module.exports.put = async function (chamado) {
     for (key in chamado) { // obtém as chaves do objeto
         // se o valor for diferente de objeto (caso events)
         if (typeof chamado[key] !== 'object') {
-            if (key !== 'iddetento') {
+            if (key !== 'idAAA') {
                 if (valores === "") {
                     valores += key + " ='" + chamado[key] + "'";
                 } else {
@@ -65,7 +65,7 @@ module.exports.put = async function (chamado) {
     };
 
     let script = `UPDATE SisAAA SET ${valores}
-                        WHERE iddetento = ${chamado.iddetento}`;
+                        WHERE idAAA = ${chamado.idAAA}`;
 
     let resultado = await configDB.executaScriptSQL(script);
     return resultado;
@@ -74,7 +74,7 @@ module.exports.put = async function (chamado) {
 module.exports.delete = async function (id) {
 
     //monta a consulta
-    let script = `DELETE FROM SisAAA WHERE iddetento = ${id}`;
+    let script = `DELETE FROM SisAAA WHERE idAAA = ${id}`;
 
     let resultado = await configDB.executaScriptSQL(script);
     return resultado;

@@ -10,16 +10,16 @@ const routers = require('./routes');
 server.use(compression());
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
-server.use('/portal_patrimar', routers);
+server.use('/portal_infopen', routers);
 
 consign()
     .include('src/routes')
     .into(server);
 
 //define a porta em que o servico ira rodar
-const porta = 3002;
+const porta = process.env.PORT || 3002;
 
 //sobe o servidor
 server.listen(porta, function(){
-    console.log(`Portal Infopen rodando na porta ${porta}`);
+    console.log(`Portal Infopen rodando na porta http://localhost:${porta}`);
 });
