@@ -3,14 +3,14 @@
 ?>
     <div class="container">
         <!-- tabela dos registros -->
-        <div class="panel panel-primary" id="lista">
+        <div class="panel" id="lista">
             <div class="panel-heading">Número de visitas </div>
             <div class="panel-footer">
                 <button type="button" class="btn btn-success btn-sm glyphicon glyphicon-print" title="Imprimir" onclick="printData('lista');"></button>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="lista_registros">
+                    <table class="table table" id="lista_registros">
                         <thead>
                             <tr>
                                 <th>Quantidade</th>

@@ -1,15 +1,15 @@
 let sql = require('mssql');
+const {user,password,server,database,port} = require('../environment/env.json');
+
 
 //monta a string de conexao
 let conexao = {
-    user: 'infopen',
-    password: 'Teste123',
-    server: 'infopen.database.windows.net',
-    database: 'Db_Infopen',
-    options: {
-        encrypt: true // Use this if you're on Windows Azure
-    }
-}
+    user,
+    password,
+    server,
+    database,
+    port
+};
 //exporta a string de conexao caso seja necessaria
 module.exports.stringConexao = conexao;
 
@@ -35,6 +35,7 @@ module.exports.executaScriptSQL = async function(query){
         retorno.linhasAfetadas = result.rowsAffected;
         return retorno;
     } catch (err) {
+       console.log(err);
         retorno.erro = err;
         return retorno;
     } finally {

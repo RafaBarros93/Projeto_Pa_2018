@@ -1,5 +1,3 @@
-let registros = [];
-
 function controlaPanel(exibeFormulario) {
     if (exibeFormulario) {
         $('#formulario').show();
@@ -23,67 +21,87 @@ function cancelarRegistro() {
 
 
 $(window).on("load", function () {
-    carregaChamado();
+    //carregaChamado();
+    preencheTable();
+
+
 
 });
 
 
-function preencheTableUnidade(codigo) {
+function verificaUnidade(codigo) {
+    if (codigo != '' && codigo != 'teste') {
+        var filter = infopen.find(function (item) {
+            return item.nomeUnid === codigo;
 
-    if (codigo != '') {
-        let tabela = document.getElementById('lista_corpo');
-        for (let x in registros) {
-            if (registros[x].nomeUnid === codigo) {
-                tabela.innerHTML +=
-                    `
-            <tr>
-                <td>${registros[x].horario}</td>
-                <td>${registros[x].infopen}</td>
-                <td>${registros[x].nomeDetento}</td>
-                <td>${registros[x].nomeAla}</td>
-                <td>${registros[x].nomeCela}</td>
-                <td>${registros[x].nomeAdv}</td>   
-                <td>${registros[x].oab}</td> 
-                <td>${formataDataBrasileira(registros[x].dataVisita)}</td> 
-             </tr>
-            `
-            }
-            if (registros[x].nomeUnid != codigo || codigo === "teste") {
-                tabela.innerHTML = '';
-                $('#modal_contrato').modal('show');
-                let mensagem = document.getElementById('mensagem_modal_contrato');
-                mensagem.innerHTML = 'Unidade prisional sem registros!';
-            }
-        }
+        });
+
+        preencheTableUnidade(filter);
+
+        if (codigo === 'teste')
+            preencheTable();
 
     }
+
 }
+
+
+
+
+
+function preencheTableUnidade(filter) {
+    let tabela = document.getElementById('lista_corpo');
+    tabela.innerHTML = '';
+    if (filter === undefined) {
+        $('#modal_contrato').modal('show');
+        let mensagem = document.getElementById('mensagem_modal_contrato');
+        mensagem.innerHTML = 'Unidade sem registros!';
+    }
+    tabela.innerHTML +=
+        `
+            <tr>
+            <td>${filter.horario}</td>
+            <td>${filter.infopen}</td>
+            <td>${filter.nomeDetento}</td>
+            <td>${filter.nomeAla}</td>
+            <td>${filter.nomeCela}</td>
+            <td>${filter.nomeAdvogado}</td>   
+            <td>${filter.oab}</td> 
+            <td>${filter.dataVisita}</td> 
+             </tr>
+            
+            `
+}
+
+
+
 
 function preencheTableData(codigo) {
     let data;
     if (codigo != '') {
         let tabela = document.getElementById('lista_corpo');
-        for (let x in registros) {
-            data = registros[x].dataVisita;
+        for (let x in infopen) {
+            data = infopen[x].dataVisita;
             moment(codigo);
+            moment(data);
             var isAfter = moment(data).isAfter(codigo);
             console.log(isAfter);
             if (data === codigo) {
                 tabela.innerHTML +=
                     `
                 <tr>
-                    <td>${registros[x].horario}</td>
-                    <td>${registros[x].infopen}</td>
-                    <td>${registros[x].nomeDetento}</td>
-                    <td>${registros[x].nomeAla}</td>
-                    <td>${registros[x].nomeCela}</td>
-                    <td>${registros[x].nomeAdv}</td>   
-                    <td>${registros[x].oab}</td> 
-                    <td>${formataDataBrasileira(registros[x].dataVisita)}</td> 
+                    <td>${infopen[x].horario}</td>
+                    <td>${infopen[x].infopen}</td>
+                    <td>${infopen[x].nomeDetento}</td>
+                    <td>${infopen[x].nomeAla}</td>
+                    <td>${infopen[x].nomeCela}</td>
+                    <td>${infopen[x].nomeAdv}</td>   
+                    <td>${infopen[x].oab}</td> 
+                    <td>${infopen[x].dataVisita}</td> 
                  </tr>
                 `
             }
-            if (registros[x].dataVisita != codigo) {
+            if (infopen[x].dataVisita != codigo) {
                 tabela.innerHTML = '';
                 $('#modal_contrato').modal('show');
                 let mensagem = document.getElementById('mensagem_modal_contrato');
@@ -98,22 +116,26 @@ function preencheTableData(codigo) {
 function preencheTable() {
     let tabela = document.getElementById('lista_corpo');
     tabela.innerHTML = '';
-    for (let i in registros) {
+
+
+    for (let i in infopen) {
         tabela.innerHTML +=
             `
         <tr>
-            <td>${registros[i].horario}</td>
-            <td>${registros[i].infopen}</td>
-            <td>${registros[i].nomeDetento}</td>
-            <td>${registros[i].nomeAla}</td>
-            <td>${registros[i].nomeCela}</td>
-            <td>${registros[i].nomeAdv}</td>   
-            <td>${registros[i].oab}</td> 
-            <td>${formataDataBrasileira(registros[i].dataVisita)}</td> 
+            <td>${infopen[i].horario}</td>
+            <td>${infopen[i].infopen}</td>
+            <td>${infopen[i].nomeDetento}</td>
+            <td>${infopen[i].nomeAla}</td>
+            <td>${infopen[i].nomeCela}</td>
+            <td>${infopen[i].nomeAdvogado}</td>   
+            <td>${infopen[i].oab}</td> 
+            <td>${infopen[i].dataVisita}</td> 
         </tr>
         `
     }
+
 }
+
 
 //funcao para gravar um novo registro no bd
 function gravarBD(dados) {
@@ -144,7 +166,7 @@ function deletarBD(id) {
 }
 
 //funcao para carregar os registros do bd
-function carregaChamado() {
+/* function carregaChamado() {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', BASE_URL_SERVICO + '/cadastro', false);
     xhr.onload = function () {
@@ -157,7 +179,7 @@ function carregaChamado() {
     xhr.send();
 }
 
-
+ */
 
 function printData(id) {
     let html = `
@@ -172,3 +194,41 @@ function printData(id) {
     newWin.print();
     newWin.close();
 }
+
+var infopen = [{
+        "horario": "15:00",
+        "infopen": "4324532",
+        "nomeDetento": "Gleisi Hoffmann",
+        "nomeAla": 15,
+        "nomeCela": 230,
+        "nomeAdvogado": "Paulo Roberto",
+        "oab": "CA-4596898",
+        "dataVisita": "25/12/2018",
+        "nomeUnid": "PRIJMD"
+    },
+    {
+        "horario": "16:00",
+        "infopen": "4324532",
+        "nomeDetento": "José Dirceu",
+        "nomeAla": 15,
+        "nomeCela": 230,
+        "nomeAdvogado": "Alexandre Moura",
+        "oab": "CA-4596898",
+        "dataVisita": "10/10/2018",
+        "nomeUnid": "PRPJC"
+    },
+    {
+        "horario": "10:00",
+        "infopen": "4324532",
+        "nomeDetento": "Luis Inácio Lula da Silva",
+        "nomeAla": 15,
+        "nomeCela": 230,
+        "nomeAdvogado": "Rafael Lopes",
+        "oab": "MG-4596898",
+        "dataVisita": "10/10/2018",
+        "nomeUnid": "PRPJC"
+    }
+
+
+
+];

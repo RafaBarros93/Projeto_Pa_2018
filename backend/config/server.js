@@ -17,7 +17,7 @@ consign()
     .into(server);
 
 //define a porta em que o servico ira rodar
-const porta = process.env.PORT || 3002;
+const porta = 3004;
 
 //sobe o servidor
 server.listen(porta, function(){

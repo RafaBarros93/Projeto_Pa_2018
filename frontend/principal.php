@@ -3,9 +3,12 @@
 ?>
 
 <div class="container">
-    <!-- <h1>Bem vindo a VP6!</h1> -->
-    <img src="images/brasao.png">
+  
+ <img  src="images/brasao.png">
+ <img class="gov" src="images/MARCA_GOVERNO_MINAS.png">
 </div>
+
+
 <?php
     require_once("layout/rodape_layout.php");
 ?>

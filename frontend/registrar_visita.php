@@ -4,7 +4,7 @@
     <div class="container">
         <!-- Formulario para manipulacao dos registros -->
         <form onsubmit="salvarRegistro()" id="formulario" method="post">
-            <div class="panel panel-primary">
+            <div class="panel">
                 <div class="panel-heading">Cadastrar visiita</div>
                 <div class="panel-body">
                     <div class="form-group row">

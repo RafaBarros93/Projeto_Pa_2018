@@ -1,9 +1,12 @@
 <?php
     session_start();
 
-    require_once("config.php");
+   // require_once("config.php");
 
-    $origem = basename($_SERVER['HTTP_REFERER']);
+
+    header("Location:../principal.php");
+
+  /*   $origem = basename($_SERVER['HTTP_REFERER']);
 	if ((count($_POST) <= 0) && ($origem != '../index.php')){
 		die();
 	}
@@ -59,5 +62,5 @@
         } else {
             header("Location:../index.php");
         }
-    }
+    } */
 ?>

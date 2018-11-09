@@ -5,16 +5,16 @@
     <div class="container">
 
         <!-- formulario filtro -->
-        <div class="panel panel-primary" id="filtros">
+        <div class="panel panel" id="filtros">
             <div class="panel-heading">Filtros</div>
             <div class="panel-body">
                 <form class="form-inline">
                     <label class="control-label" for="txtBuscar">Pesquise na tabela por:</label>
                     <input type="text" id="txtBuscar" placeholder="Buscar por" class="form-control input-sm">&nbsp;
                     <label class="control-label" for="selStatus">Unidade Prisional</label>
-                    <select id="selStatus" class="form-control input-sm" required onChange='preencheTableUnidade(this.value)'>
+                    <select id="selStatus" class="form-control input-sm" required onChange='verificaUnidade(this.value)'>
                         <option value="teste"></option>
-                        <option value="PRIJMDD">PRIJMD</option>
+                        <option value="PRIJMD">PRIJMD</option>
                         <option value="PRPJC">PRPJC</option>
                         <option value="PRBAR">PRBAR</option>
                     </select>
@@ -26,11 +26,11 @@
         </div>
 
         <!-- tabela dos registros -->
-        <div class="panel panel-primary" id="lista">
+        <div class="panel panel" id="lista">
             <div class="panel-heading">Visitas Cadastradas</div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="lista_registros">
+                    <table class="table" id="lista_registros">
                         <thead>
                             <tr>
                                 <th>Horário</th>

@@ -1,4 +1,16 @@
-let registros = [];
+let registros = [{
+        "Quantidade": 2,
+        "Horarios": "15:00",
+        "nomeUnid": "PRIJMD"
+    },
+    {
+        "Quantidade": 1,
+        "Horarios": "09:00",
+        "nomeUnid": "PRPJC"
+    }
+
+];
+
 
 function controlaPanel(exibeFormulario) {
     if (exibeFormulario) {
@@ -23,7 +35,7 @@ function cancelarRegistro() {
 
 
 $(window).on("load", function () {
-    carregaChamado();
+    preencheTable();
 
 });
 
@@ -38,7 +50,7 @@ function preencheTable() {
             `
         <tr>
             <td>${registros[i].Quantidade}</td>
-            <td>${registros[i].Horários}</td>
+            <td>${registros[i].Horarios}</td>
             <td>${registros[i].nomeUnid}</td>
             
         </tr>
